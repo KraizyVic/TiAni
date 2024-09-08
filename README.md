@@ -1,4 +1,4 @@
-# tiani
+# TiAni
 
 TiAni is an Anime DISCOVERY application made for ANDROID TV platforms.
 
