@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tiani/functionality/data.dart';
+import 'package:tiani/models/anime_model.dart';
 import 'package:tiani/theme/theme.dart';
 import 'package:tiani/utilities/account_items.dart';
 
@@ -30,7 +31,7 @@ class AppLogic extends ChangeNotifier{
     notifyListeners();
   }
   // Change Background Pic:
-  var currentPic = backgroundImages[0];
+  var currentPic = backgroundImages[15];
   void changePic(String backgroundPic){
     currentPic = backgroundPic;
     notifyListeners();
@@ -76,7 +77,7 @@ class AppLogic extends ChangeNotifier{
       notifyListeners();
     }
   }
-  var showAppBar = true;
+  var showAppBar = false;
   void showAppbarInHomePage(value){
     if (showAppBar != value) {
       showAppBar = value;
@@ -99,18 +100,10 @@ class AppLogic extends ChangeNotifier{
    AccountModel(
        name: "Nancy",
        pfpImage: "",
-       watchedFilms: 20,
-       movieList: 30,
-       tvList: 40,
-       uncategorisedList: 10,
-   ),
-    AccountModel(
-       name: "Kate",
-       pfpImage: "",
-       watchedFilms: 28,
-       movieList: 77,
-       tvList: 13,
-       uncategorisedList: 9,
+       watchedFilms: {},
+       movieList: {},
+       tvList: {},
+       uncategorisedList: {},
    ),
   ];
   void addAccount(BuildContext context){
@@ -151,6 +144,28 @@ class AppLogic extends ChangeNotifier{
       currentAccount = 0;
     }
     currentAccount = 0;
+    notifyListeners();
+  }
+
+  // ======== ADD ANIME TO lIST ========
+  void addAnimeToList(AnimeModel anime){
+    if(anime.type == "Movie"){
+      accounnts[currentAccount].movieList.add(anime);
+    }else if(anime.type == "TV"){
+      accounnts[currentAccount].tvList.add(anime);
+    }else{
+      accounnts[currentAccount].uncategorisedList.add(anime);
+    }
+    notifyListeners();
+  }
+  void removeFromList(AnimeModel anime){
+    if(anime.type == "Movie"){
+      accounnts[currentAccount].movieList.remove(anime);
+    }else if(anime.type == "TV"){
+      accounnts[currentAccount].tvList.remove(anime);
+    }else{
+      accounnts[currentAccount].uncategorisedList.remove(anime);
+    }
     notifyListeners();
   }
 }

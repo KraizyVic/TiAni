@@ -4,6 +4,7 @@ import 'package:tiani/functionality/app_logic.dart';
 import 'package:tiani/models/anime_model.dart';
 import 'package:tiani/models/character_model.dart';
 import 'package:tiani/models/review_model.dart';
+import 'package:tiani/pages/review_page.dart';
 import 'package:tiani/services/anime_service.dart';
 import 'package:tiani/services/character_service.dart';
 import 'package:tiani/utilities/character_tile.dart';
@@ -363,6 +364,9 @@ class _ReviewsState extends State<Reviews> {
                         return ReviewTile(
                           focusNode: index == 0 ? _focusNode :FocusNode(),
                           review: snapshot.data![index],
+                          anime: widget.anime,
+                          index:index,
+                          onEnter: ()=>Navigator.push(context,MaterialPageRoute(builder: (context)=>ReviewPage(review: snapshot.data![index], anime: widget.anime, index: index))),
                         );
                       },
                     );
@@ -379,7 +383,7 @@ class _ReviewsState extends State<Reviews> {
                     );
                   }
                 }else if (snapshot.hasError){
-                  return Center(child: Text("Error"),);
+                  return Center(child: Text("Error ${snapshot.error}"),);
                 }else if (snapshot.connectionState == ConnectionState.waiting){
                   return Center(child: CircularProgressIndicator(color: Provider.of<AppLogic>(context,listen: false).tertiaryColor,),);
                 }else{

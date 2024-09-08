@@ -35,115 +35,126 @@ class _WatchListState extends State<WatchList> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Movies",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
+                children: <Widget>[
+                  data.accounnts[data.currentAccount].movieList.isNotEmpty ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Movies",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Text(
+                              "Total: ${data.accounnts[data.currentAccount].movieList.length}",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 20,),
-                        Text(
-                          "Total: ${data.accounnts[data.currentAccount].movieList}",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height*homeTileHeight,
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,childAspectRatio: 1.6/1),
+                              itemCount: data.accounnts[data.currentAccount].movieList.length,
+                              itemBuilder: (context,index){
+                                return HomeTile(
+                                  anime: data.accounnts[data.currentAccount].movieList.toList()[index],
+                                  focusNode: index == 0 ? _movieNode : FocusNode(),
+                                  autofocus: index == 0,
+                                  onDown: ()=>_serriesNode.requestFocus(),
+                                );
+                              }
+                          )
+                      ),
+                    ],
+                  ):SizedBox(),
+                  data.accounnts[data.currentAccount].tvList.isNotEmpty?Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Tv Serries",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Text(
+                              "Total: ${data.accounnts[data.currentAccount].tvList.length}",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                      height: MediaQuery.of(context).size.height*homeTileHeight,
-                      child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,childAspectRatio: 1.6/1),
-                          itemCount: data.accounnts[data.currentAccount].movieList,
-                          itemBuilder: (context,index){
-                            return DummyHomeTile(
-                              focusNode: index == 0 ? _movieNode : FocusNode(),
-                              image: "imagesData[index]",
-                              autofocus: index == 0,
-                              onDown: ()=>_serriesNode.requestFocus(),
-                            );
-                          }
-                      )
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Tv Serries",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height*homeTileHeight,
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,childAspectRatio: 1.6/1),
+                              itemCount: data.accounnts[data.currentAccount].tvList.length,
+                              itemBuilder: (context,index){
+                                return HomeTile(
+                                  focusNode: index == 0 ? _serriesNode : FocusNode(),
+                                  autofocus: false,
+                                  onDown: ()=> _uncategorisedNode.requestFocus(), anime: data.accounnts[data.currentAccount].tvList.toList()[index],
+                                );
+                              }
+                          )
+                      ),
+                    ],
+                  ):SizedBox(),
+                  data.accounnts[data.currentAccount].uncategorisedList.isNotEmpty?Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Uncategorised",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Text(
+                              "Total: ${data.accounnts[data.currentAccount].uncategorisedList.length}",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 20,),
-                        Text(
-                          "Total: ${data.accounnts[data.currentAccount].tvList}",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                      height: MediaQuery.of(context).size.height*homeTileHeight,
-                      child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,childAspectRatio: 1.6/1),
-                          itemCount: data.accounnts[data.currentAccount].tvList,
-                          itemBuilder: (context,index){
-                            return DummyHomeTile(
-                              focusNode: index == 0 ? _serriesNode : FocusNode(),
-                              image: "imagesData[index]",
-                              autofocus: false,
-                              onDown: ()=> _uncategorisedNode.requestFocus(),
-                            );
-                          }
-                      )
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Uncategorised",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        SizedBox(width: 20,),
-                        Text(
-                          "Total: ${data.accounnts[data.currentAccount].uncategorisedList}",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                      height: MediaQuery.of(context).size.height*homeTileHeight,
-                      child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,childAspectRatio: 1.6/1),
-                          itemCount: data.accounnts[data.currentAccount].uncategorisedList,
-                          itemBuilder: (context,index){
-                            return DummyHomeTile(
-                              focusNode: index == 0 ? _uncategorisedNode : FocusNode(),
-                              image: "",
-                              autofocus: false,
-                            );
-                          }
-                      )
-                  ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height*homeTileHeight,
+                          child: GridView.builder(
+                            scrollDirection: Axis.horizontal,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,childAspectRatio: 1.6/1),
+                            itemCount: data.accounnts[data.currentAccount].uncategorisedList.length,
+                            itemBuilder: (context,index){
+                              return HomeTile(
+                                autofocus: false,
+                                focusNode: index == 0 ? _uncategorisedNode : FocusNode(),
+                                anime: data.accounnts[data.currentAccount].uncategorisedList.toList()[index],
+                              );
+                            }
+                          )
+                      ),
+                    ],
+                  ):SizedBox(),
                 ],
               ),
             ),

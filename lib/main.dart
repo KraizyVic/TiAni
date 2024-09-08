@@ -41,9 +41,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Consumer<AppLogic>(
       builder:(context,data,child)=> MaterialApp(
-        title: 'Uanimurs',
+        title:  "TiAni",
         theme: Provider.of<AppLogic>(context).currentTheme,
-        home: MainPage()/*FutureBuilder(
+        home: /*MainPage()*/FutureBuilder(
           future: animes,
           builder: (context,snapshot){
             if(snapshot.hasData){
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
               return WelcomePage();
             }
           }
-        )*/,
+        ),
         debugShowCheckedModeBanner: false,
       ),
     );

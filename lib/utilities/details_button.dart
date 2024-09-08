@@ -9,12 +9,14 @@ class DetailsButton extends StatefulWidget {
   final bool autofocus;
   final IconData buttonIcon;
   final VoidCallback enter;
+  final VoidCallback onbutton;
   const DetailsButton({
     super.key,
     required this.buttonTxt,
     required this.buttonIcon,
     required this.autofocus,
     required this.enter,
+    required this.onbutton,
   });
 
   @override
@@ -61,6 +63,8 @@ class _DetailsButtonState extends State<DetailsButton> {
               if(event.logicalKey == LogicalKeyboardKey.enter){
                 widget.enter();
                 return KeyEventResult.handled;
+              }else{
+                widget.onbutton();
               }
             }
             return KeyEventResult.ignored;

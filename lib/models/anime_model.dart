@@ -73,6 +73,14 @@ class AnimeModel{
     required this.demographics,
   });
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is AnimeModel && runtimeType == other.runtimeType && malId == other.malId;
+
+  @override
+  int get hashCode => malId.hashCode;
+
   factory AnimeModel.fromJson(Map<String, dynamic> json) => AnimeModel(
     malId: json["mal_id"]??0,
     url: json["url"]??"Null",

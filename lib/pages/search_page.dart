@@ -168,7 +168,7 @@ class _SearchPageState extends State<SearchPage> {
                                           itemBuilder: (context,index){
                                             return HomeTile(
                                               anime: snapshot.data![index],
-                                              focusNode: index==0?_focusNode:FocusNode(),
+                                              focusNode: index == 0?_focusNode:FocusNode(),
                                               autofocus: autofocus,
                                               //focusNode: index == 0 ? _focusNode : FocusNode(),
                                             );
@@ -184,7 +184,7 @@ class _SearchPageState extends State<SearchPage> {
                                         ),
                                       );
                                     }else if (snapshot.connectionState == ConnectionState.waiting){
-                                      return Center(child: CircularProgressIndicator(),);
+                                      return Center(child: CircularProgressIndicator(color: data.tertiaryColor,),);
                                     }else{
                                       return Container(
                                         child: (data.preferrenceGroupValue == 1)?GridView.builder(

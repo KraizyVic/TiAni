@@ -106,9 +106,9 @@ class CurrentAccountTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text("Watched films :\n${account.watchedFilms}",textAlign: TextAlign.center,),
-                      Text("Movie list :\n${account.movieList}",textAlign: TextAlign.center,),
-                      Text("TV list :\n${account.tvList}",textAlign: TextAlign.center,),
-                      Text("Uncategorised list :\n${account.uncategorisedList}",textAlign: TextAlign.center,),
+                      Text("Movie list :\n${account.movieList.length}",textAlign: TextAlign.center,),
+                      Text("TV list :\n${account.tvList.length}",textAlign: TextAlign.center,),
+                      Text("Uncategorised list :\n${account.uncategorisedList.length}",textAlign: TextAlign.center,),
                     ],
                   )
                 ],

@@ -1,9 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tiani/functionality/app_logic.dart';
+import 'package:tiani/models/anime_model.dart';
 import 'package:tiani/models/review_model.dart';
+import 'package:tiani/pages/review_page.dart';
 import 'package:tiani/theme/theme.dart';
 
 class SeasonTile extends StatefulWidget {
@@ -107,10 +111,16 @@ class _EpisodeTileState extends State<EpisodeTile> {
 class ReviewTile extends StatefulWidget {
   final ReviewModel review;
   final FocusNode? focusNode;
+  final AnimeModel anime;
+  final int index;
+  final VoidCallback onEnter;
   const ReviewTile({
     super.key,
     required this.review,
+    required this.anime,
     this.focusNode,
+    required this.index,
+    required this.onEnter,
   });
 
   @override
@@ -119,6 +129,15 @@ class ReviewTile extends StatefulWidget {
 class _ReviewTileState extends State<ReviewTile> {
   final FocusNode _focusNode = FocusNode();
   Color _tileColor = Colors.transparent;
+  late String date;
+  @override
+  void initState() {
+    // TODO: implement initState
+    DateTime parsed = DateTime.parse(widget.review.date);
+    date = DateFormat('yyyy').format(parsed);
+
+    super.initState();
+  }
   @override
   void dispose() {
     // TODO: implement dispose
@@ -129,13 +148,28 @@ class _ReviewTileState extends State<ReviewTile> {
   Widget build(BuildContext context) {
     return Consumer<AppLogic>(
       builder:(context,data,child)=> Padding(
-        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03,vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 20 /*MediaQuery.of(context).size.width*0.03*/,vertical: 8),
         child: Focus(
           focusNode: widget.focusNode ?? _focusNode,
           onFocusChange: (hasFocus){
             setState(() {
               _tileColor = hasFocus?Theme.of(context).colorScheme.secondary.withOpacity(0.3):Colors.transparent;
             });
+            if(hasFocus){
+              Scrollable.ensureVisible(
+                  context,
+                alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd,
+                curve: Curves.easeInOut,
+                duration: Duration(milliseconds: 150)
+              );
+            }
+          },
+          onKeyEvent: (_focusNode,event){
+            if(event.logicalKey == LogicalKeyboardKey.enter){
+              widget.onEnter();
+              return KeyEventResult.handled;
+            }
+            return KeyEventResult.ignored;
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
@@ -180,17 +214,21 @@ class _ReviewTileState extends State<ReviewTile> {
                                           style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(width: 20,),
-                                        Expanded(child: Text(widget.review.date,overflow: TextOverflow.ellipsis,style: TextStyle(color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),))
+                                        Expanded(child: Text(date,overflow: TextOverflow.ellipsis,style: TextStyle(color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),))
                                       ],
                                     )
                                 ),
-                                Icon(Icons.star,color: data.tertiaryColor,size: 20,),
-                                SizedBox(width: 10,),
+                                Icon(Icons.star,color: data.tertiaryColor,size: 17,),
+                                SizedBox(width: 5,),
                                 Text(widget.review.score.toString()),
                                 SizedBox(width: 20,),
                               ],
                             ),
-                            SizedBox(height: 5,),
+                            Text(
+                              widget.review.tag.toUpperCase(),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 14,color: data.tertiaryColor.withOpacity(0.9)),
+                            ),
                             //Text("Title",overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20),),
                             Text(widget.review.review,maxLines: 2,overflow: TextOverflow.ellipsis,)
                           ],

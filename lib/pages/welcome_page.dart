@@ -54,7 +54,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Uanimurs",
+                      "TiAni",
                       style: TextStyle(fontSize: 40),
                     ),
                     Text(
