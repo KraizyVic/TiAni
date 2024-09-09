@@ -64,7 +64,7 @@ class _HomeBannerState extends State<HomeBanner> {
           },
           onKeyEvent: (_bannerNode,event){
             if(event is KeyDownEvent){
-              if(event.logicalKey == LogicalKeyboardKey.enter){
+              if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsPage(anime: widget.anime,)));
                 return KeyEventResult.handled;
               }else if(event.logicalKey == LogicalKeyboardKey.arrowDown /*|| event.logicalKey == LogicalKeyboardKey.arrowRight*/){

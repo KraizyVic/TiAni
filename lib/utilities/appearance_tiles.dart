@@ -40,7 +40,7 @@ class _ColorTileState extends State<ColorTile> {
           },
           onKeyEvent: (_focusNode,event){
             if(event is KeyEvent){
-              if(event.logicalKey == LogicalKeyboardKey.enter){
+              if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
                 //print("Color clicked");
                 data.changeColor(widget.color!);
                 return KeyEventResult.handled;
@@ -104,7 +104,7 @@ class _BackgroundImageState extends State<BackgroundImage> {
           });
         },
         onKeyEvent: (_imagefocusNode,event){
-          if(event.logicalKey == LogicalKeyboardKey.enter){
+          if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
             //print("Image Clicked");
             data.changePic(widget.image);
             return KeyEventResult.handled;

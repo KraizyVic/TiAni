@@ -50,7 +50,7 @@ class _SettingsTilesState extends State<SettingsTiles> {
           },
           onKeyEvent: (_focusNode,event){
             if(event is KeyDownEvent){
-              if(event.logicalKey == LogicalKeyboardKey.enter){
+              if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
                 widget.onEnter();
               }
             }

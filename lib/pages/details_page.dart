@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
@@ -27,30 +26,10 @@ class _DetailsPageState extends State<DetailsPage> {
   double opacityR = 0.2;
   FocusNode _focusNode = FocusNode();
   late Widget detail ;
-  late AnimationController _controller ;
-  late Animation<Alignment> _animation;
 
   @override
   void initState() {
     detail = Intro(anime: widget.anime);
-    /*_controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 1), // Duration of the animation
-    );
-
-    _animation = Tween<Alignment>(
-      begin: Alignment.bottomLeft,
-      end: Alignment.topRight,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
-    // Add a listener to reverse the animation when it completes
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _controller.reverse();
-      }
-    });*/
     super.initState();
   }
 

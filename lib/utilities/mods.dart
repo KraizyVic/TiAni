@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,23 +28,6 @@ class ModedAppBar extends StatelessWidget {
         icon: CupertinoIcons.chevron_left,
       ),
       actions: [
-        /*SizedBox(
-                  width: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey,
-                        hintText: "Search",
-                        suffix: Icon(Icons.search,color: Colors.black87,),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)
-                        )
-                      ),
-                    ),
-                  ),
-                ),*/
         action1,
         action2,
         action3,
@@ -85,7 +66,7 @@ class _ModedIconButtonState extends State<ModedIconButton> {
         },
         onKeyEvent: (_focusNode,event){
           if(event is KeyDownEvent){
-            if (event.logicalKey == LogicalKeyboardKey.enter){
+            if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
               Feedback.forTap(context);
               widget.onPressed();
               return KeyEventResult.handled;

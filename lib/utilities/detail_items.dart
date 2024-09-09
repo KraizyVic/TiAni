@@ -149,92 +149,91 @@ class _ReviewTileState extends State<ReviewTile> {
     return Consumer<AppLogic>(
       builder:(context,data,child)=> Padding(
         padding: EdgeInsets.symmetric(horizontal: 20 /*MediaQuery.of(context).size.width*0.03*/,vertical: 8),
-        child: Focus(
-          focusNode: widget.focusNode ?? _focusNode,
-          onFocusChange: (hasFocus){
-            setState(() {
-              _tileColor = hasFocus?Theme.of(context).colorScheme.secondary.withOpacity(0.3):Colors.transparent;
-            });
-            if(hasFocus){
-              Scrollable.ensureVisible(
-                  context,
-                alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd,
-                curve: Curves.easeInOut,
-                duration: Duration(milliseconds: 150)
-              );
-            }
-          },
-          onKeyEvent: (_focusNode,event){
-            if(event.logicalKey == LogicalKeyboardKey.enter){
-              widget.onEnter();
-              return KeyEventResult.handled;
-            }
-            return KeyEventResult.ignored;
-          },
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10,sigmaY: 10),
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                //margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: widget.focusNode!.hasFocus?Theme.of(context).colorScheme.secondary.withOpacity(0.4):Theme.of(context).colorScheme.secondary.withOpacity(0.2),
-                  border: Border.all(width: 1.5,color: widget.focusNode!.hasFocus?data.tertiaryColor:Colors.transparent)
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.secondary.withOpacity(0.38),
-                          shape: BoxShape.circle,
-                          image: DecorationImage(image: NetworkImage(widget.review.image),fit: BoxFit.cover)
+        child: GestureDetector(
+          onTap: ()=>widget.onEnter,
+          child: Focus(
+            focusNode: widget.focusNode ?? _focusNode,
+            onFocusChange: (hasFocus){
+              setState(() {
+                _tileColor = hasFocus?Theme.of(context).colorScheme.secondary.withOpacity(0.3):Colors.transparent;
+              });
+              if(hasFocus){
+                Scrollable.ensureVisible(
+                    context,
+                  alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd,
+                  curve: Curves.easeInOut,
+                  duration: Duration(milliseconds: 150)
+                );
+              }
+            },
+            onKeyEvent: (_focusNode,event){
+              if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
+                widget.onEnter();
+                return KeyEventResult.handled;
+              }
+              return KeyEventResult.ignored;
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10,sigmaY: 10),
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 200),
+                  //margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.03),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: widget.focusNode!.hasFocus?Theme.of(context).colorScheme.secondary.withOpacity(0.4):Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                    border: Border.all(width: 1.5,color: widget.focusNode!.hasFocus?data.tertiaryColor:Colors.transparent)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 70,
+                          height: 70,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary.withOpacity(0.38),
+                            shape: BoxShape.circle,
+                            image: DecorationImage(image: NetworkImage(widget.review.image),fit: BoxFit.cover)
+                          ),
+                          //child: Icon(Icons.person),
                         ),
-                        //child: Icon(Icons.person),
-                      ),
-                      SizedBox(width: 10,),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: 
-                                    Row(
-                                      children: [
-                                        Text(
-                                          widget.review.userName,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(width: 20,),
-                                        Expanded(child: Text(date,overflow: TextOverflow.ellipsis,style: TextStyle(color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),))
-                                      ],
-                                    )
-                                ),
-                                Icon(Icons.star,color: data.tertiaryColor,size: 17,),
-                                SizedBox(width: 5,),
-                                Text(widget.review.score.toString()),
-                                SizedBox(width: 20,),
-                              ],
-                            ),
-                            Text(
-                              widget.review.tag.toUpperCase(),
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 14,color: data.tertiaryColor.withOpacity(0.9)),
-                            ),
-                            //Text("Title",overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20),),
-                            Text(widget.review.review,maxLines: 2,overflow: TextOverflow.ellipsis,)
-                          ],
-                        ),
-                      )
-                    ],
+                        SizedBox(width: 10,),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child:
+                                      Text(
+                                        widget.review.userName,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
+                                      )
+                                  ),
+                                  Text(date,overflow: TextOverflow.ellipsis,style: TextStyle(color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),),
+                                  SizedBox(width: 20,),
+                                  Icon(Icons.star,color: data.tertiaryColor,size: 17,),
+                                  SizedBox(width: 5,),
+                                  Text(widget.review.score.toString()),
+                                  SizedBox(width: 20,),
+                                ],
+                              ),
+                              Text(
+                                widget.review.tag.toUpperCase(),
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 14,color: data.tertiaryColor.withOpacity(0.9)),
+                              ),
+                              //Text("Title",overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20),),
+                              Text(widget.review.review,maxLines: 1,overflow: TextOverflow.ellipsis,)
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

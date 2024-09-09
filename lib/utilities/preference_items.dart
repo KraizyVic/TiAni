@@ -45,8 +45,6 @@ class _PreferenceSwitchState extends State<PreferenceSwitch> {
     );
   }
 }*/
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PreferenceSwitch extends StatefulWidget {
   final String switchName;
@@ -92,8 +90,8 @@ class _PreferenceSwitchState extends State<PreferenceSwitch> {
             focusColor: Colors.transparent,
             inactiveTrackColor: Theme.of(context).canvasColor.withOpacity(0.6),
             activeTrackColor: Provider.of<AppLogic>(context).tertiaryColor.withOpacity(0.5),
-            trackOutlineColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
-              if (states.contains(MaterialState.focused)) {
+            trackOutlineColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+              if (states.contains(WidgetState.focused)) {
                 return Provider.of<AppLogic>(context).tertiaryColor;
               }
               return Provider.of<AppLogic>(context).tertiaryColor.withOpacity(0.4); // Use the default color.
@@ -142,7 +140,7 @@ class _PreferenceButtonState extends State<PreferenceButton> {
       },
       onKeyEvent: (_focusNode,event){
         if(event is KeyDownEvent){
-          if(event.logicalKey == LogicalKeyboardKey.enter){
+          if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
             print("Enter pressed");
             Feedback.forTap(context);
             return KeyEventResult.handled;

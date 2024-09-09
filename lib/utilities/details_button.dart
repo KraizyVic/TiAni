@@ -60,7 +60,7 @@ class _DetailsButtonState extends State<DetailsButton> {
           },
           onKeyEvent: (_detailsButtonNode,event){
             if(event is KeyDownEvent){
-              if(event.logicalKey == LogicalKeyboardKey.enter){
+              if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
                 widget.enter();
                 return KeyEventResult.handled;
               }else{

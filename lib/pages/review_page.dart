@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -10,7 +9,6 @@ import 'package:tiani/functionality/app_logic.dart';
 import 'package:tiani/models/anime_model.dart';
 import 'package:tiani/models/review_model.dart';
 import 'package:tiani/pages/account_page.dart';
-import 'package:tiani/pages/home_page.dart';
 import 'package:tiani/pages/main_page.dart';
 import 'package:tiani/pages/settings_page.dart';
 import 'package:tiani/services/anime_service.dart';

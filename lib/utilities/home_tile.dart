@@ -64,7 +64,7 @@ class _HomeTileState extends State<HomeTile> {
           },
           onKeyEvent: (_homeTileNode,event){
             if(event is KeyDownEvent){
-              if(event.logicalKey == LogicalKeyboardKey.enter){
+              if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsPage(anime: widget.anime,)));
                 //print("ThisHomeTilePressed");
                 return KeyEventResult.handled;
@@ -189,7 +189,7 @@ class _HomeListTileState extends State<HomeListTile> {
           },
           onKeyEvent: (_homeTileNode,event){
             if(event is KeyDownEvent){
-              if(event.logicalKey == LogicalKeyboardKey.enter){
+              if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsPage(anime: widget.anime,)));
                 //print("ThisHomeTilePressed");
                 return KeyEventResult.handled;

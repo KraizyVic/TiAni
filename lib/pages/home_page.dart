@@ -72,14 +72,6 @@ class _HomePageState extends State<HomePage> {
                                 onKeyUp: (){},
                               );
                             },
-                            /*options: CarouselOptions(
-                          //autoPlay: true,
-                          //autoPlayInterval: Duration(seconds: 5),
-                          animateToClosest: false,
-                          viewportFraction: 0.95,
-                          autoPlayCurve: Curves.easeInOut,
-                          enableInfiniteScroll: true,
-                        )*/
                           );
                         }/*else if(snapshot.hasError){
                           return Center(

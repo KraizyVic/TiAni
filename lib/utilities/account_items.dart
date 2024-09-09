@@ -182,7 +182,7 @@ class _AccountAvatarState extends State<AccountAvatar> {
                         },
                         onKeyEvent: (_avatarNode,event){
                           if(event is KeyDownEvent){
-                            if(event.logicalKey == LogicalKeyboardKey.enter){
+                            if(event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
                               widget.onEnter();
                               return KeyEventResult.handled;
                             }
@@ -285,7 +285,7 @@ class _AddAccountButtonState extends State<AddAccountButton> {
         },
         onKeyEvent: (iconButtonNode,event){
           if(event is KeyDownEvent){
-            if (event.logicalKey == LogicalKeyboardKey.enter){
+            if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.select){
               print("Add account pressed");
               widget.onEnter();
             }
